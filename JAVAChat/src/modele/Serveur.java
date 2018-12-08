@@ -18,7 +18,7 @@ public class Serveur implements Runnable{//nc -v localhost 1025 -u
 	private final static int port = 1028; 
 	final static int taille = 1024; 
 	static byte buffer[] = new byte[taille];
-	private List<Thread> ListeClients;
+	public static List<Thread> ListeClients;
 
 
 	public static int getPort() {
@@ -47,24 +47,29 @@ public class Serveur implements Runnable{//nc -v localhost 1025 -u
 				out.println("Connexion au serveur:");
 				out.println("Quel est votre nom?");
 				
-			
+				/*Thread connexion = new Thread(new Connexion(socketCli,));
+
+				server.start();*/
+				
 				BufferedReader in = new BufferedReader( new InputStreamReader(socketCli.getInputStream()));
 
 				String nom = in.readLine();
 				
 				((Client) client).setNom(nom);
 				
+				
+				
 				for(Thread cli: ListeClients){
 					PrintStream out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
 					out2.println(((Client) client).getNom() + " vient de se connecter!");
 					
 				}
-				
+
 				ListeClients.add(client);
 				
 				out.println("Bienvenue sur le serveur "+ ((Client) client).getNom() + " !" );
-
 				
+				client.start();
 
 
 			}

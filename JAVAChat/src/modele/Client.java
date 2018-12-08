@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import application.Application;
+
 public class Client extends Thread{//nc -v localhost 1025 -u
 
 	final static int port = 1028; 
@@ -27,26 +29,23 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 	@Override
 	public void run() {
 		
-		
 		BufferedReader in = null;
-		PrintStream out = null;
-
-
 		try {
 			in = new BufferedReader( new InputStreamReader(client.getInputStream()));
-			out = new PrintStream(client.getOutputStream());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-			String nom = in.readLine();
-			this.nom = nom;
 			
-			notifyAll();
+		try {
+			
+			while(true) {
+			String msg = in.readLine();
+			Application.bal.put(this.getNom() + " : " + msg);
+		}
+			
 
-
-			for(int i =0; i<10;i++){
-
-				out.println(i);
-
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
