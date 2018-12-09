@@ -7,32 +7,38 @@ import application.Application;
 
 public class Distributeur implements Runnable{
 	
+	private Client client;
+	
+	public Distributeur(Client client) {
+		
+		this.client = client;
+
+	}
+	
 
 	@Override
 	public void run() {
 		
+		
 		String tmp;
 	
-
 		tmp = Application.bal.get();
 		
-		Thread client = Serveur.ListeClients.remove(Serveur.ListeClients.size()-1);
-		
 		for(Thread cli: Serveur.ListeClients){
+			if(cli != client) {
 			PrintStream out2;
 			try {
 				out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
-				out2.println(tmp);
+				out2.println(client.getNom()+ " : " + tmp);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 			
 		}
 		
-		Serveur.ListeClients.add(client);
-		
-		}
+	}
 
 }

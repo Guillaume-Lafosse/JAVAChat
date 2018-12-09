@@ -38,39 +38,8 @@ public class Serveur implements Runnable{//nc -v localhost 1025 -u
 			System.out.println(sockServ.getLocalPort());
 			while(true){
 				socketCli = sockServ.accept();
-				Thread client = new Client(socketCli);
-
-				
-				System.out.println(socketCli.getInetAddress());
-				PrintStream out = new PrintStream(socketCli.getOutputStream());
-				
-				out.println("Connexion au serveur:");
-				out.println("Quel est votre nom?");
-				
-				/*Thread connexion = new Thread(new Connexion(socketCli,));
-
-				server.start();*/
-				
-				BufferedReader in = new BufferedReader( new InputStreamReader(socketCli.getInputStream()));
-
-				String nom = in.readLine();
-				
-				((Client) client).setNom(nom);
-				
-				
-				
-				for(Thread cli: ListeClients){
-					PrintStream out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
-					out2.println(((Client) client).getNom() + " vient de se connecter!");
-					
-				}
-
-				ListeClients.add(client);
-				
-				out.println("Bienvenue sur le serveur "+ ((Client) client).getNom() + " !" );
-				
-				client.start();
-
+				Thread connexion = new Thread(new Connexion(new Client(socketCli)));
+				connexion.start();				
 
 			}
 		}catch(IOException e){

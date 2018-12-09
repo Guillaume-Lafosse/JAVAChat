@@ -11,11 +11,9 @@ public class Application {
 		public static void main(String[] args) throws InterruptedException {
 
 
-			Thread distri = new Thread(new Distributeur(),"Distri");
 			Thread server = new Thread(new Serveur());
 
 			server.start();
-			distri.start();
 
 		}
 }

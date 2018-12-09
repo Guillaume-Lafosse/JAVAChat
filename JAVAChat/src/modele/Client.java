@@ -1,5 +1,6 @@
 package modele;
 import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,6 +31,8 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 	public void run() {
 		
 		BufferedReader in = null;
+		String msg;
+		
 		try {
 			in = new BufferedReader( new InputStreamReader(client.getInputStream()));
 		} catch (IOException e1) {
@@ -39,13 +42,29 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 
 			
 		try {
-			
-			while(true) {
-			String msg = in.readLine();
-			Application.bal.put(this.getNom() + " : " + msg);
-		}
-			
 
+			do {
+				 msg = in.readLine();
+				Application.bal.put(msg);
+			Thread distri = new Thread(new Distributeur(this));
+			distri.start();
+			distri.join();
+			}while(!msg.equalsIgnoreCase("bye"));
+			
+			Serveur.ListeClients.remove(this);
+			
+			for(Thread cli: Serveur.ListeClients){
+
+				PrintStream out2;
+				try {
+					out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
+					out2.println(this.getNom() + " vient de se deconnecter ! ");
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
