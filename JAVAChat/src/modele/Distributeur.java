@@ -31,6 +31,7 @@ public class Distributeur implements Runnable{
 			try {
 				out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
 				out2.println(client.getNom()+ " : " + tmp);
+				
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

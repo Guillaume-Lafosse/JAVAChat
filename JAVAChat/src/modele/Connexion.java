@@ -10,10 +10,9 @@ public class Connexion implements Runnable{
 	
 	private Client client;
 	
-	public Connexion(Client client) {
+	public Connexion(Socket socketCli ) {
 		
-		this.client = client;
-		
+		this.client = new Client(socketCli);
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class Serveur implements Runnable{//nc -v localhost 1025 -u
 			System.out.println(sockServ.getLocalPort());
 			while(true){
 				socketCli = sockServ.accept();
-				Thread connexion = new Thread(new Connexion(new Client(socketCli)));
+				Thread connexion = new Thread(new Connexion(socketCli));
 				connexion.start();				
 
 			}
