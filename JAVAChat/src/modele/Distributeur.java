@@ -23,6 +23,7 @@ public class Distributeur implements Runnable{
 		String tmp;
 	
 		tmp = Application.bal.get();
+		tmp = tmp.substring(0 , tmp.length()-1);
 		
 		for(Thread cli: Serveur.ListeClients){
 			if(cli != client) {
