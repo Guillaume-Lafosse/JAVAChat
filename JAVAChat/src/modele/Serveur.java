@@ -13,11 +13,10 @@ import java.util.List;
 
 
 
-public class Serveur implements Runnable{//nc -v localhost 1025 -u
+public class Serveur implements Runnable{//nc -v localhost 1028 -u
 
 	private final static int port = 1028; 
 	final static int taille = 1024; 
-	static byte buffer[] = new byte[taille];
 	public static List<Thread> ListeClients;
 
 

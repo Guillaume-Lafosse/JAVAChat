@@ -15,7 +15,6 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 
 	final static int port = 1028; 
 	final static int taille = 1024; 
-	static byte buffer[] = new byte[taille];
 	private Socket client;
 	private String nom;
 
