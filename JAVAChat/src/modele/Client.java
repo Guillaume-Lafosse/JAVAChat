@@ -29,10 +29,10 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 
 	@Override
 	public void run() {
-		
+
 		BufferedReader in = null;
 		String msg;
-		
+
 		try {
 			in = new BufferedReader( new InputStreamReader(client.getInputStream()));
 		} catch (IOException e1) {
@@ -40,19 +40,19 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 			e1.printStackTrace();
 		}
 
-			
+
 		try {
 
 			do {
-				 msg = in.readLine();
+				msg = in.readLine();
 				Application.bal.put(msg);
-			Thread distri = new Thread(new Distributeur(this));
-			distri.start();
-			distri.join();
+				Thread distri = new Thread(new Distributeur(this));
+				distri.start();
+				distri.join();
 			}while(!msg.equalsIgnoreCase("bye"));
-			
+
 			Serveur.ListeClients.remove(this);
-			
+
 			for(Thread cli: Serveur.ListeClients){
 
 				PrintStream out2;
@@ -75,7 +75,7 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -91,5 +91,5 @@ public class Client extends Thread{//nc -v localhost 1025 -u
 	}
 
 
-	
+
 }

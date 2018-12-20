@@ -27,7 +27,7 @@ public class Serveur implements Runnable{//nc -v localhost 1025 -u
 
 	@Override
 	public void run() {
-		
+
 		ListeClients = new ArrayList<Thread>();
 
 		Socket socketCli = null;
