@@ -6,14 +6,15 @@ import modele.Serveur;
 
 public class Application {
 
-	public static BAL bal=new BAL();
+	public static BAL bal=new BAL();//Boite au lettre permmettant l'échange de messages
+	
 
-	public static void main(String[] args) throws InterruptedException {
-
+	public static void main(String[] args) throws InterruptedException {//méthode de lancement
+		
 
 		Thread server = new Thread(new Serveur());
 
-		server.start();
+		server.start();//démarrage de l'application
 
 	}
 }

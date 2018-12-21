@@ -11,15 +11,14 @@ import java.net.Socket;
 
 import application.Application;
 
-public class Client extends Thread{//nc -v localhost 1028 -u
+public class Client extends Thread{
 
-	final static int port = 1028; 
-	final static int taille = 1024; 
-	private Socket client;
-	private String nom;
+	final static int port = 1028; //déclaration du port
+	private Socket client;//déclaration du socket client
+	private String nom;//déclaration du nom
 
 
-	public Client(Socket client){
+	public Client(Socket client){//constructeur du client
 		super();
 		this.client = client;
 		this.nom = null;
@@ -27,15 +26,14 @@ public class Client extends Thread{//nc -v localhost 1028 -u
 
 
 	@Override
-	public void run() {
+	public void run() {//lancement du Thread
 
-		BufferedReader in = null;
-		String msg;
+		BufferedReader in = null;//entrée clavier
+		String msg;//message à envoyer
 
 		try {
-			in = new BufferedReader( new InputStreamReader(client.getInputStream()));
+			in = new BufferedReader( new InputStreamReader(client.getInputStream()));//instanciation de l'entrée clavier
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -43,14 +41,14 @@ public class Client extends Thread{//nc -v localhost 1028 -u
 		try {
 
 			do {
-				msg = in.readLine();
-				Application.bal.put(msg);
-				Thread distri = new Thread(new Distributeur(this));
-				distri.start();
-				distri.join();
-			}while(!msg.equalsIgnoreCase("bye"));
+				msg = in.readLine();//lecture du message à envoyer
+				Application.bal.put(msg);//envoi du message à diffuser dans la boite aux lettres
+				Thread distri = new Thread(new Distributeur(this));//instanciation du distributeur avec le client 
+				distri.start();//démarrage du Thread de diffusion
+				distri.join();//attente de la fin du Thread
+			}while(!msg.equalsIgnoreCase("bye"));//condition pour quitter le serveur
 
-			Serveur.ListeClients.remove(this);
+			Serveur.ListeClients.remove(this);//suppression de ce client de la liste si jamais il écrit "bye"
 
 			for(Thread cli: Serveur.ListeClients){
 
@@ -60,7 +58,6 @@ public class Client extends Thread{//nc -v localhost 1028 -u
 					out2.println(this.getNom() + " vient de se deconnecter ! ");
 
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
