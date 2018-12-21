@@ -7,10 +7,10 @@ public class BAL {
 
 	public synchronized void put(String put_data) {
 
-		// si un thread a Ã©crit un message on attend. 
-		// Lorsque la mÃ©thode get aura vidÃ©
-		// la variable data et que le thread sera rÃ©veillÃ©, 
-		// l'exÃ©cution pourra reprendre
+		// si un thread a écrit un message on attend. 
+		// Lorsque la méthode get aura vidÃ©
+		// la variable data et que le thread sera réveillé, 
+		// l'exécution pourra reprendre
 		while (message != null) {
 
 			try {
@@ -21,7 +21,7 @@ public class BAL {
 
 		message = put_data+"/";
 
-		// Une fois la donnÃ©e dÃ©posÃ©e on réveille les threads en attente
+		// Une fois la donnée déposée on réveille les threads en attente
 		notifyAll();
 		return;
 

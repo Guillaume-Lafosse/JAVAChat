@@ -11,7 +11,7 @@ import java.net.Socket;
 
 import application.Application;
 
-public class Client extends Thread{//nc -v localhost 1025 -u
+public class Client extends Thread{//nc -v localhost 1028 -u
 
 	final static int port = 1028; 
 	final static int taille = 1024; 
