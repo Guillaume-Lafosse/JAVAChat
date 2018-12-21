@@ -50,11 +50,11 @@ public class Client extends Thread{
 
 			Serveur.ListeClients.remove(this);//suppression de ce client de la liste si jamais il écrit "bye"
 
-			for(Thread cli: Serveur.ListeClients){
+			for(Thread cli: Serveur.ListeClients){//parcours de liste des clients
 
 				PrintStream out2;
 				try {
-					out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());
+					out2 = new PrintStream(((Client) cli).getSocket().getOutputStream());//affichage sur les autres terminaux clients la déconnexion du client 
 					out2.println(this.getNom() + " vient de se deconnecter ! ");
 
 				} catch (IOException e) {
@@ -66,23 +66,23 @@ public class Client extends Thread{
 			e.printStackTrace();
 		}
 		try {
-			client.close();
+			client.close(); //fermeture du socket du client, il est déconnecté
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void setNom(String nom) {
+	public void setNom(String nom) {//attribution du nom au client
 		this.nom = nom;
 	}
 
 
-	public String getNom() {
+	public String getNom() {//récupération du nom du client
 		return nom;
 	}
 
 
-	public Socket getSocket(){
+	public Socket getSocket(){//récupération du socket du client
 		return this.client;
 	}
 
